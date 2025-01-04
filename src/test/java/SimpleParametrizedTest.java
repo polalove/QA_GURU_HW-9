@@ -47,4 +47,5 @@ public class SimpleParametrizedTest extends TestBase {
         $("div#QuickLinks a[href*='categoryId=" + category + "']").click();
         $("div#Catalog h2").shouldHave(Condition.text(category));
     }
+
 }
