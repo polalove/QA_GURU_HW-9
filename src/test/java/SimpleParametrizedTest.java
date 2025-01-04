@@ -12,16 +12,17 @@ import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
+
 @DisplayName("Checking the site's operation")
+@Tag("WEB")
 public class SimpleParametrizedTest extends TestBase {
 
     @ValueSource(strings = {
             "Fish", "Dogs", "Cats", "Reptiles", "Birds"
     })
 
-    @Tag("WEB")
     @ParameterizedTest(name = "Checking the transition from the main page {0}")
-    void selectedAnimalPage(String setAnimal) {
+    void selectedAnimalPageTest(String setAnimal) {
         open("/actions/Catalog.action");
         $("area[alt=" + setAnimal + "]").click();
         $("#Catalog").shouldHave(text(setAnimal));
@@ -32,18 +33,16 @@ public class SimpleParametrizedTest extends TestBase {
     }
 
     @MethodSource("categoryProvider")
-    @Tag("WEB")
     @ParameterizedTest(name = "Checking for categories {0}")
-    void CategoryIdentifier(String category) {
+    void categoryIdentifierTest(String category) {
         open("/actions/Catalog.action");
         $("div#QuickLinks a[href*='categoryId=" + category + "']").click();
         $("div#Catalog h2").shouldHave(Condition.text(category));
     }
 
     @CsvFileSource(resources = "/test_data/testCategoryIdentifierCsv.csv")
-    @Tag("WEB")
     @ParameterizedTest(name = "Checking for categories {0}")
-    void CategoryIdentifierCsv(String category) {
+    void categoryIdentifierCsvTest(String category) {
         open("/actions/Catalog.action");
         $("div#QuickLinks a[href*='categoryId=" + category + "']").click();
         $("div#Catalog h2").shouldHave(Condition.text(category));
